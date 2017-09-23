@@ -13,11 +13,23 @@ import javax.sql.DataSource;
 /**
  * Created by sony on 16-09-2017.
  */
-@Configuration
-@EnableTransactionManagement
-@PropertySource(value = { "classpath:resources/application.properties" })
+//@Configuration
+//@EnableTransactionManagement
+//@PropertySource(value = { "classpath:resources/application.properties" })
 public class DatabaseConfiguration {
-    @Autowired
+
+    /*@Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/");
+        dataSource.setUsername("root");
+        dataSource.setPassword("password");
+
+        return dataSource;
+    }*/
+   /* @Autowired
     private Environment env;
     @Bean
     public DataSource dataSource() {
@@ -27,5 +39,5 @@ public class DatabaseConfiguration {
         dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
-    }
+    }*/
 }

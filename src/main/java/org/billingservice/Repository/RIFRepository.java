@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * Created by sony on 16-09-2017.
  */
-public interface RIFRepository extends CrudRepository<RestaurantDetails,Long> {
+public interface RIFRepository extends CrudRepository<RestaurantDetails,Integer> {
 
     List<RestaurantDetails> findByName(String name);
 
-    List<RestaurantDetails> findById(String id);
+    RestaurantDetails save (RestaurantDetails restaurantDetails);
 
-
+    RestaurantDetails findByResID(int id);
 }
