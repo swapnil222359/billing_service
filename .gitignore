@@ -1,0 +1,85 @@
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+#KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+# maven template
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml..versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Exclude maven wrapper
+!/.mvn/wrapper/maven-wrapper.jar
+
+### JetBrains Template
+# Covers Jetbrains IDEs:
+
+#User specific stuff:
+.idea
+.idea/workspace.xml
+.idea/tasks.xml
+
+# Sensitive or high-churn files
+.idea/datasources/
+.idea/datasources.ids
+.idea/datasources.xml
+.idea/datasources.local.xml
+.idea/sqlDatasources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+
+# Gradle
+.idea/gradle.xml
+.idea/libraries
+
+# Mongo Explorer plugin
+.idea/mongoSettings.xml
+
+# Intellij
+/out/
+
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# package files
+*.jar
+*.war
+*.ear
+
+# Idea module extensions
+*.iml
+*.ipr
+*.iws
