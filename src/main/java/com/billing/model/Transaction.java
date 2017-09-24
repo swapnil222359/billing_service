@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -31,11 +32,8 @@ public class Transaction {
     @Column(name = "resid" ,nullable = false)
     private int resID;
 
-    @Column(name = "date" ,nullable = false)
-    private Date date;
-
-    @Column(name = "time" ,nullable = false)
-    private Time time;
+    @Column(name = "timestamp",nullable = false)
+    private Timestamp timestamp;
 
     //@Column(name = "userid", nullable = false)
     //private int userID;

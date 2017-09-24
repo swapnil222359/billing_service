@@ -14,6 +14,7 @@ public class MenuItems {
     private int  itemId;
     private String itemName;
     private String qty;
+    private String state;
     private double price;
 
 }

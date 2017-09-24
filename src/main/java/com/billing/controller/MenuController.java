@@ -1,5 +1,6 @@
 package com.billing.controller;
 
+import com.billing.model.DeleteMenuItemsRequest;
 import com.billing.service.ResInfoAndMenuInfoService;
 import com.billing.model.MenuDetails;
 import com.billing.model.MenuItemList;
@@ -28,7 +29,7 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/deleteMenuItem", method = RequestMethod.POST, consumes = "application/json")
-    public void deleteMenuItems(@RequestBody MenuItemList menuItemList){
+    public void deleteMenuItems(@RequestBody DeleteMenuItemsRequest menuItemList){
         menuService.deleteMenuItems(menuItemList);
     }
 

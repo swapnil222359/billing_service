@@ -39,6 +39,7 @@ public class ResInfoAndMenuInfoService {
                                     .itemName(item.getItemName())
                                     .price(item.getPrice())
                                     .qty(item.getQty())
+                                    .state(item.getState())
                                     .resid(menuItemList.getResID())
                                     .build();
             mifRepository.save(details);
@@ -68,14 +69,11 @@ public class ResInfoAndMenuInfoService {
         return mifRepository.findByResid(resid);
     }
 
-    public void deleteMenuItems(MenuItemList menuItemList) {
-        for(MenuItems item: menuItemList.getItemsList()){
+    public void deleteMenuItems(DeleteMenuItemsRequest menuItemList) {
+        for(Integer itemID : menuItemList.getItem()){
             MenuDetails details = MenuDetails.builder()
-                    .itemId(item.getItemId())
-                    .itemName(item.getItemName())
-                    .price(item.getPrice())
-                    .qty(item.getQty())
-                    .resid(menuItemList.getResID())
+                    .itemId(itemID)
+                    .resid(menuItemList.getResid())
                     .build();
             mifRepository.delete(details);
         }
