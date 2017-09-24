@@ -8,16 +8,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by sony on 18-09-2017.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Menu")
-public class MenuDetails implements Serializable{
+public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +23,7 @@ public class MenuDetails implements Serializable{
     @Column(name = "item_name", nullable = false)
     private String itemName;
 
-    @Column(name = "qty", nullable = false)
+    @Column(name = "quantity", nullable = false)
     private String qty;
 
     @Column(name = "price", nullable = false)
@@ -35,4 +31,5 @@ public class MenuDetails implements Serializable{
 
     @Column(name = "resid", nullable = false)
     private int resid;
+
 }

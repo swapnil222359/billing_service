@@ -1,36 +1,33 @@
 package com.billing.controller;
 
-import com.billing.service.ResInfoAndMenuInfoService;
-import com.billing.model.MenuDetails;
-import com.billing.model.MenuItemList;
+import com.billing.model.Menu;
+import com.billing.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
+@RestController
+@RequestMapping(produces = "application/json", consumes = "application/json")
 public class MenuController {
 
     @Autowired
-    private ResInfoAndMenuInfoService menuService;
+    private MenuService menuService;
 
-    @RequestMapping(value = "/saveMenu", method = RequestMethod.POST, consumes = "application/json")
-    public void saveDetails(@RequestBody MenuItemList menuItemList){
-        menuService.saveMenu(menuItemList);
+    @PostMapping(value = "/saveMenu")
+    public void saveDetails(@RequestBody HashMap<Integer, Menu> restaurantMenuMap) {
+        menuService.saveMenu(restaurantMenuMap);
     }
 
-    @RequestMapping(value = "/{id}/getMenu", method = RequestMethod.GET, produces = "application/json")
-    public List<MenuDetails> getMenuDetails(@PathVariable("id") int id){
-
+    @GetMapping(value = "/{id}/getMenu")
+    public List<Menu> getMenuDetails(@PathVariable("id") int id) {
         return menuService.getMenuListForRes(id);
     }
 
-    @RequestMapping(value = "/deleteMenuItem", method = RequestMethod.POST, consumes = "application/json")
-    public void deleteMenuItems(@RequestBody MenuItemList menuItemList){
-        menuService.deleteMenuItems(menuItemList);
+    @PostMapping(value = "/deleteMenuItem")
+    public void deleteMenuItems(@RequestBody HashMap<Integer, Menu> restaurantMenuMap) {
+        menuService.deleteMenuItems(restaurantMenuMap);
     }
-
 
 }

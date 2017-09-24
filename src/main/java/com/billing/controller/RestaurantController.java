@@ -3,20 +3,16 @@ package com.billing.controller;
 import com.billing.model.AddResDetailsRequest;
 import com.billing.model.ResDetailsAndMenu;
 import com.billing.model.RestaurantDetails;
-import com.billing.service.ResInfoAndMenuInfoService;
+import com.billing.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by sony on 16-09-2017.
- */
 @RestController
-public class RestaurantDetailsController {
+public class RestaurantController {
 
     @Autowired
-    private ResInfoAndMenuInfoService service;
+    private MenuService service;
 
-    //for testing
     @RequestMapping(value = "/rest")
     String home(){
 
