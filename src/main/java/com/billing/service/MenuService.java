@@ -61,12 +61,18 @@ public class MenuService {
         return menuRepository.findByResid(resid);
     }
 
-    public void deleteMenuItems(HashMap<Integer, Menu> restaurantMenuMap) {
-        restaurantMenuMap.entrySet().stream().forEach(entry ->
-                {
-                    entry.getValue().setResid(entry.getKey());
-                    menuRepository.delete(entry.getValue());
-                }
-        );
+    public void deleteMenuItems(HashMap<Integer, List<Integer>> deleteMenuMap) {
+        deleteMenuMap.entrySet().stream()
+                .forEach(entry -> {
+                    entry.getValue().stream()
+                            .forEach(item -> {
+                                Menu menu = Menu.builder()
+                                        .itemId(item)
+                                        .resid(entry.getKey())
+                                        .build();
+
+                                menuRepository.delete(menu);
+                            });
+                });
     }
 }

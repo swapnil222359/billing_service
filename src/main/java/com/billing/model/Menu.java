@@ -29,6 +29,9 @@ public class Menu {
     @Column(name = "price", nullable = false)
     private double price;
 
+    @Column(name = "state", nullable = false)
+    private String state;
+
     @Column(name = "resid", nullable = false)
     private int resid;
 

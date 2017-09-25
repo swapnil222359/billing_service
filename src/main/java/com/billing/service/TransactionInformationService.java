@@ -29,8 +29,7 @@ public class TransactionInformationService {
         while(listSize-- > 0){
             Transaction transaction = Transaction.builder()
                     .resID(detailsRequest.getResID())
-                    .date(detailsRequest.getDate())
-                    .time(detailsRequest.getTime())
+                    .timestamp(detailsRequest.getTimestamp())
                     .total(detailsRequest.getTotal())
                     //.userID(detailsRequest.getUserID())
                     .build();

@@ -27,8 +27,9 @@ public class MenuController {
     }
 
     @PostMapping(value = "/deleteMenuItem")
-    public void deleteMenuItems(@RequestBody HashMap<Integer, Menu> restaurantMenuMap) {
-        menuService.deleteMenuItems(restaurantMenuMap);
+    public void deleteMenuItems(@RequestBody HashMap<Integer, List<Integer>> deleteMenuMap) {
+        menuService.deleteMenuItems(deleteMenuMap);
     }
+
 
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
@@ -24,9 +25,7 @@ public class TransactionDetailsRequest {
 
     private int resID;
 
-    private Date date;
-
-    private Time time;
+    private Timestamp timestamp;
 
    // private int userID;
 
