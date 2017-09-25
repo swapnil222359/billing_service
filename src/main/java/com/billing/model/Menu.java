@@ -17,7 +17,7 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "itemID", nullable = false)
+    @Column(name = "item_id", nullable = false)
     private int  itemId;
 
     @Column(name = "item_name", nullable = false)

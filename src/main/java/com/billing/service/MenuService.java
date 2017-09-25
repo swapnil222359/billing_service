@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MenuService {
@@ -18,22 +19,22 @@ public class MenuService {
     @Autowired
     private MenuRepository menuRepository;
 
-    public void saveRIF(AddResDetailsRequest restaurantDetails){
+    public void saveRIF(AddResDetailsRequest restaurantDetails) {
         restaurantRepository.save(restaurantDetails.getRestaurantDetails());
         LoginCredentials loginCredentials = LoginCredentials.builder()
-                                            .loginID(restaurantDetails.getLoginID())
-                                            .password(restaurantDetails.getPassword())
-                                            .resID(restaurantDetails.getRestaurantDetails().getResID())
-                                            .build();
+                .loginID(restaurantDetails.getLoginID())
+                .password(restaurantDetails.getPassword())
+                .resID(restaurantDetails.getRestaurantDetails().getResID())
+                .build();
 
     }
 
-    public void saveMenu(HashMap<Integer, Menu> restaurantMenuMap){
+    public void saveMenu(Map<Integer, Menu> restaurantMenuMap) {
         restaurantMenuMap.entrySet().stream().forEach(entry ->
-            {
-                entry.getValue().setResid(entry.getKey());
-                menuRepository.save(entry.getValue());
-            }
+                {
+                    entry.getValue().setResid(entry.getKey());
+                    menuRepository.save(entry.getValue());
+                }
         );
     }
 
@@ -43,12 +44,12 @@ public class MenuService {
 
 
         ResDetailsAndMenu resDetailsAndMenu = ResDetailsAndMenu.builder()
-                                                .resID(restaurantDetails.getResID())
-                                                .address(restaurantDetails.getAddress())
-                                                .emailAddress(restaurantDetails.getEmailAddress())
-                                                .contactNumber(restaurantDetails.getNumber())
-                                                .menuDetails(itemList)
-                                                .build();
+                .resID(restaurantDetails.getResID())
+                .address(restaurantDetails.getAddress())
+                .emailAddress(restaurantDetails.getEmailAddress())
+                .contactNumber(restaurantDetails.getNumber())
+                .menuDetails(itemList)
+                .build();
         return resDetailsAndMenu;
     }
 

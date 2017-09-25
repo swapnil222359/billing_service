@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(produces = "application/json", consumes = "application/json")
@@ -16,7 +17,7 @@ public class MenuController {
     private MenuService menuService;
 
     @PostMapping(value = "/saveMenu")
-    public void saveDetails(@RequestBody HashMap<Integer, Menu> restaurantMenuMap) {
+    public void saveDetails(@RequestBody Map<Integer, Menu> restaurantMenuMap) {
         menuService.saveMenu(restaurantMenuMap);
     }
 
