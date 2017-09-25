@@ -10,9 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Created by sony on 19-09-2017.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +25,7 @@ public class TransactionData {
     @Column(name = "itemID",nullable = false)
     private int itemID;
 
-    @Column(name = "qty",nullable = false)
+    @Column(name = "quantity",nullable = false)
     private String qty;
 
 }

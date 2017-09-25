@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-/**
- * Created by sony on 20-09-2017.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,5 +19,5 @@ public class ResDetailsAndMenu {
     private String address;
     private String emailAddress;
     private String loginID;
-    private List< MenuDetails > menuDetails;
+    private List<Menu> menuDetails;
 }
