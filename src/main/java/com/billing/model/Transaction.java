@@ -35,6 +35,9 @@ public class Transaction {
     @Column(name = "timestamp",nullable = false)
     private Timestamp timestamp;
 
-    //@Column(name = "userid", nullable = false)
-    //private int userID;
+    @Column(name = "userid", nullable = false)
+    private int userID;
+
+    @Column(name = "couponID", nullable = false)
+    private String couponID;
 }

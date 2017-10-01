@@ -31,7 +31,8 @@ public class TransactionInformationService {
                     .resID(detailsRequest.getResID())
                     .timestamp(detailsRequest.getTimestamp())
                     .total(detailsRequest.getTotal())
-                    //.userID(detailsRequest.getUserID())
+                    .userID(detailsRequest.getUserID())
+                    .couponID(detailsRequest.getCouponID())
                     .build();
 
             Transaction savedTransaction = tdRepository.save(transaction);

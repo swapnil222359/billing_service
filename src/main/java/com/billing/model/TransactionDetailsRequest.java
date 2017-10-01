@@ -27,6 +27,8 @@ public class TransactionDetailsRequest {
 
     private Timestamp timestamp;
 
-   // private int userID;
+    private int userID;
+
+    private String couponID;
 
 }

@@ -8,6 +8,25 @@ CREATE TABLE menu
     resid int (20)
 
 );
+CREATE TABLE CouponDetails
+(
+    couponID VARCHAR(255),
+    coupon_name varchar(255),
+    offer_description VARCHAR(255),
+    creation_date TIMESTAMP,
+    validity TIMESTAMP,
+    percentage int(10),
+    total DECIMAL(9,2),
+    itemID int(32),
+    resID int (32),
+    points int (16),
+    points_type VARCHAR(255),
+    offer_type VARCHAR(255),
+    redeem BOOLEAN,
+    PRIMARY KEY (couponID),
+    FOREIGN KEY (resID) REFERENCES rif(ResID),
+    FOREIGN KEY (itemID) REFERENCES menu(itemID)
+);
 
 CREATE TABLE rif
 (
@@ -18,6 +37,19 @@ CREATE TABLE rif
     EmailID VARCHAR(255)
 
 );
+
+CREATE TABLE PointsAlloted
+(
+    resID int(32),
+    userID int(32),
+    points int(32),
+    points_type VARCHAR(100),
+    serialNumber int(32),
+
+    PRIMARY KEY (serialNumber),
+    FOREIGN KEY (resID) REFERENCES rif(ResID)
+);
+
 CREATE TABLE login_details
 (
     loginid VARCHAR(255),
@@ -57,11 +89,11 @@ SELECT * FROM REST;
 
 RENAME TABLE rest to RIF;
 
-ALTER TABLE login_details
-    ADD srNum int(30);
+ALTER TABLE menu
+    ADD comboID VARCHAR(255);
 
 ALTER TABLE menu
-    CHANGE ResID resID int (20);
+    CHANGE qty quantity VARCHAR(100);
 
 ALTER TABLE menu
     MODIFY COLUMN Number int(10);
