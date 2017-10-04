@@ -8,24 +8,24 @@ CREATE TABLE menu
     resid int (20)
 
 );
-CREATE TABLE CouponDetails
+CREATE TABLE coupon
 (
-    couponID VARCHAR(255),
+    coupon_id VARCHAR(255),
     coupon_name varchar(255),
     offer_description VARCHAR(255),
-    creation_date TIMESTAMP,
-    validity TIMESTAMP,
+    creation_date VARCHAR(50),
+    validity VARCHAR(50),
     percentage int(10),
     total DECIMAL(9,2),
-    itemID int(32),
-    resID int (32),
+    item_id int(32),
+    restaurant_id int (32),
     points int (16),
     points_type VARCHAR(255),
     offer_type VARCHAR(255),
     redeem BOOLEAN,
-    PRIMARY KEY (couponID),
-    FOREIGN KEY (resID) REFERENCES rif(ResID),
-    FOREIGN KEY (itemID) REFERENCES menu(itemID)
+    PRIMARY KEY (coupon_id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES menu(item_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE rif

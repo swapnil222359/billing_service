@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by sony on 16-09-2017.
- */
 @Data
 @NoArgsConstructor
 @Entity

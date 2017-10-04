@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Created by sony on 23-09-2017.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
