@@ -28,6 +28,8 @@ CREATE TABLE coupon
     FOREIGN KEY (item_id) REFERENCES menu(item_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE user (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(30), email_id VARCHAR(30), mobile_number BIGINT, address VARCHAR(50), restaurant_id INT, PRIMARY KEY (id), FOREIGN KEY(restaurant_id) references restaurant(restaurant_id) ON DELETE CASCADE ON UPDATE CASCADE);
+
 CREATE TABLE rif
 (
     ResID int(11),
