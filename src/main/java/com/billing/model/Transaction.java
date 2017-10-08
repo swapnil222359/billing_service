@@ -10,9 +10,6 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * Created by sony on 19-09-2017.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

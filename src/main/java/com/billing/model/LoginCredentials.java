@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-/**
- * Created by sony on 23-09-2017.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
