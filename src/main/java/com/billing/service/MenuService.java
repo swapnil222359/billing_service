@@ -1,12 +1,11 @@
 package com.billing.service;
 
-import com.billing.model.*;
-import com.billing.repository.MenuRepository;
+import com.billing.model.Menu;
+import com.billing.model.Restaurant;
 import com.billing.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,63 +15,20 @@ public class MenuService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    @Autowired
-    private MenuRepository menuRepository;
-
-    public void saveRIF(AddResDetailsRequest restaurantDetails) {
-        restaurantRepository.save(restaurantDetails.getRestaurantDetails());
-        LoginCredentials loginCredentials = LoginCredentials.builder()
-                .loginID(restaurantDetails.getLoginID())
-                .password(restaurantDetails.getPassword())
-                .resID(restaurantDetails.getRestaurantDetails().getResID())
-                .build();
-
-    }
-
-    public void saveMenu(Map<Integer, Menu> restaurantMenuMap) {
+    public void saveMenu(Map<Integer, List<Menu>> restaurantMenuMap) {
         restaurantMenuMap.entrySet().stream().forEach(entry ->
                 {
-                    entry.getValue().setResid(entry.getKey());
-                    menuRepository.save(entry.getValue());
+                    Restaurant restaurant = restaurantRepository.findByRestaurantId(entry.getKey());
+                    entry.getValue().stream().forEach(menu -> menu.setRestaurant(restaurant));
+                    restaurant.getMenus().addAll(entry.getValue());
+                    restaurantRepository.save(restaurant);
                 }
         );
     }
 
-    public ResDetailsAndMenu getResMenu(int id) {
-        List<Menu> itemList = getMenuListForRes(id);
-        RestaurantDetails restaurantDetails = getRestaurantInformation(id);
-
-
-        ResDetailsAndMenu resDetailsAndMenu = ResDetailsAndMenu.builder()
-                .resID(restaurantDetails.getResID())
-                .address(restaurantDetails.getAddress())
-                .emailAddress(restaurantDetails.getEmailAddress())
-                .contactNumber(restaurantDetails.getNumber())
-                .menuDetails(itemList)
-                .build();
-        return resDetailsAndMenu;
+    public List<Menu> getMenu(int restaurantId) {
+        Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+        return restaurant.getMenus();
     }
 
-    private RestaurantDetails getRestaurantInformation(int id) {
-        return restaurantRepository.findByResID(id);
-    }
-
-    public List<Menu> getMenuListForRes(int resid) {
-        return menuRepository.findByResid(resid);
-    }
-
-    public void deleteMenuItems(HashMap<Integer, List<Integer>> deleteMenuMap) {
-        deleteMenuMap.entrySet().stream()
-                .forEach(entry -> {
-                    entry.getValue().stream()
-                            .forEach(item -> {
-                                Menu menu = Menu.builder()
-                                        .itemId(item)
-                                        .resid(entry.getKey())
-                                        .build();
-
-                                menuRepository.delete(menu);
-                            });
-                });
-    }
 }

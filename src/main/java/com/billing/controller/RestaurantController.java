@@ -2,45 +2,31 @@ package com.billing.controller;
 
 import com.billing.model.AddResDetailsRequest;
 import com.billing.model.ResDetailsAndMenu;
+import com.billing.model.Restaurant;
 import com.billing.model.RestaurantDetails;
 import com.billing.service.MenuService;
+import com.billing.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RestaurantController {
 
     @Autowired
-    private MenuService service;
+    private RestaurantService restaurantService;
 
-    @RequestMapping(value = "/rest")
-    String home(){
-
-        RestaurantDetails restaurantDetails =  RestaurantDetails.builder()
-                .name("angry")
-                .address("address")
-                .emailAddress("emadsf")
-                .number(98989)
-                .resID(123455)
-                .build();
-        AddResDetailsRequest detailsRequest = AddResDetailsRequest.builder()
-                                            .restaurantDetails(restaurantDetails)
-                                            .loginID("loginid")
-                                            .password("passowrd")
-                                            .build();
-
-        service.saveRIF(detailsRequest);
-        return "Hello ";
+    @PostMapping(value = "/restaurant")
+    public void addRestaurant(@RequestBody Restaurant restaurant) {
+        restaurantService.addRestaurant(restaurant);
     }
 
-    @RequestMapping(value = "/saveRestaurantDetails", method = RequestMethod.POST, consumes = "application/json")
-    public void saveRIFDetails(@RequestBody AddResDetailsRequest restaurantDetails){
-        service.saveRIF(restaurantDetails);
+    @GetMapping(value = "/restaurant/{restaurantId}")
+    public ResponseEntity getRestaurantDetails(@PathVariable("restaurantId") int restaurantId) {
+        Restaurant restaurant = restaurantService.getRestaurantDetails(restaurantId);
+        ResponseEntity responseEntity = new ResponseEntity(restaurant, HttpStatus.OK);
+        return responseEntity;
     }
-
-   @RequestMapping(value = "/{id}/getRestaurantDetailsAndMenu", method = RequestMethod.GET, produces = "application/json")
-   public ResDetailsAndMenu getResDetailsAndMenu(@PathVariable("id") int id){
-       return service.getResMenu(id);
-   }
 
 }

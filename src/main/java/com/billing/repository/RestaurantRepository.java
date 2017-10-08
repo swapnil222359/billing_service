@@ -1,15 +1,17 @@
 package com.billing.repository;
 
+import com.billing.model.Restaurant;
 import com.billing.model.RestaurantDetails;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface RestaurantRepository extends CrudRepository<RestaurantDetails,Integer> {
+public interface RestaurantRepository extends CrudRepository<Restaurant,Integer> {
 
-    List<RestaurantDetails> findByName(String name);
+    Restaurant findByRestaurantId(int restaurantId);
 
-    RestaurantDetails save (RestaurantDetails restaurantDetails);
+    Restaurant findByRestaurantName(String restaurantName);
 
-    RestaurantDetails findByResID(int id);
+    Restaurant save(Restaurant restaurant);
+
 }

@@ -5,7 +5,6 @@ import com.billing.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,20 +15,14 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @PostMapping(value = "/saveMenu")
-    public void saveDetails(@RequestBody Map<Integer, Menu> restaurantMenuMap) {
+    @PostMapping(value = "/menu")
+    public void saveMenu(@RequestBody Map<Integer, List<Menu>> restaurantMenuMap) {
         menuService.saveMenu(restaurantMenuMap);
     }
 
-    @GetMapping(value = "/{id}/getMenu")
-    public List<Menu> getMenuDetails(@PathVariable("id") int id) {
-        return menuService.getMenuListForRes(id);
+    @GetMapping(value = "/{restaurantId}/menu")
+    public List<Menu> getMenuDetails(@PathVariable("restaurantId") int restaurantId) {
+        return menuService.getMenu(restaurantId);
     }
-
-    @PostMapping(value = "/deleteMenuItem")
-    public void deleteMenuItems(@RequestBody HashMap<Integer, List<Integer>> deleteMenuMap) {
-        menuService.deleteMenuItems(deleteMenuMap);
-    }
-
 
 }
