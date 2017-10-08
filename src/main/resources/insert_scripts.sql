@@ -30,6 +30,18 @@ CREATE TABLE coupon
 
 CREATE TABLE user (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(30), email_id VARCHAR(30), mobile_number BIGINT, address VARCHAR(50), restaurant_id INT, PRIMARY KEY (id), FOREIGN KEY(restaurant_id) references restaurant(restaurant_id) ON DELETE CASCADE ON UPDATE CASCADE);
 
+CREATE TABLE tabledetails
+(
+    srNum int(32),
+    itemID int(32),
+    quantity VARCHAR(100),
+    tableID int(32),
+    resID int (32),
+    PRIMARY KEY (srNum),
+    FOREIGN KEY (resID) REFERENCES rif(ResID),
+    FOREIGN KEY (itemID) REFERENCES menu(itemID)
+);
+
 CREATE TABLE rif
 (
     ResID int(11),
@@ -75,9 +87,8 @@ CREATE TABLE transaction
     trid int (20),
     total int(20),
     resid int (20),
-    date DATE,
-    time TIME
-
+    tableID int (32),
+    timestamp TIMESTAMP
 );
 
 
@@ -91,8 +102,8 @@ SELECT * FROM REST;
 
 RENAME TABLE rest to RIF;
 
-ALTER TABLE menu
-    ADD comboID VARCHAR(255);
+ALTER TABLE transaction
+    ADD tableID int(32);
 
 ALTER TABLE menu
     CHANGE qty quantity VARCHAR(100);

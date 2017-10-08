@@ -28,4 +28,6 @@ public class TransactionDetailsRequest {
 
     private String couponID;
 
+    private Integer tableID;
+
 }

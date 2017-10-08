@@ -37,4 +37,7 @@ public class Transaction {
 
     @Column(name = "couponID", nullable = false)
     private String couponID;
+
+    @Column(name = "tableID", nullable = false)
+    private int tableID;
 }
