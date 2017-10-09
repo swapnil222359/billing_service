@@ -6,33 +6,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "menu")
 public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "item_id", nullable = false)
-    private int  itemId;
+    private int itemId;
 
     @Column(name = "item_name", nullable = false)
     private String itemName;
 
     @Column(name = "quantity", nullable = false)
-    private String qty;
+    private String quantity;
 
     @Column(name = "price", nullable = false)
     private double price;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "state", nullable = false)
+    private String state;
 
-    @Column(name = "resid", nullable = false)
-    private int resid;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_id", nullable = false, updatable = true, insertable = true)
+    private Restaurant restaurant;
 
 }
