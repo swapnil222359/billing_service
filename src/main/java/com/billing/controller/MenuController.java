@@ -15,14 +15,19 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @GetMapping(value = "/{restaurantId}/menu")
+    public List<Menu> getMenuDetails(@PathVariable("restaurantId") int restaurantId) {
+        return menuService.getMenu(restaurantId);
+    }
+
     @PostMapping(value = "/menu")
     public void saveMenu(@RequestBody Map<Integer, List<Menu>> restaurantMenuMap) {
         menuService.saveMenu(restaurantMenuMap);
     }
 
-    @GetMapping(value = "/{restaurantId}/menu")
-    public List<Menu> getMenuDetails(@PathVariable("restaurantId") int restaurantId) {
-        return menuService.getMenu(restaurantId);
+    @DeleteMapping(value = "/menu")
+    public void deleteMenu(@RequestBody Map<Integer, List<Integer>> deleteMenuMap) {
+        menuService.deleteMenu(deleteMenuMap);
     }
 
 }
