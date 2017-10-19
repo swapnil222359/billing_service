@@ -14,6 +14,10 @@ public class UserService {
     private UserRepository userRepository;
 
     public List<User> getUsers(int restaurantId) {
-        return userRepository.findByResid(restaurantId);
+        return userRepository.findByRestaurantId(restaurantId);
+    }
+
+    public int saveUser(User user) {
+        return userRepository.save(user).getId();
     }
 }

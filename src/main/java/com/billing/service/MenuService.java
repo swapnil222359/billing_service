@@ -6,9 +6,11 @@ import com.billing.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class MenuService {
@@ -29,17 +31,15 @@ public class MenuService {
 
     }
 
-    public void saveMenu(Map<Integer, Menu> restaurantMenuMap) {
-        restaurantMenuMap.entrySet().stream().forEach(entry ->
-                {
-                    entry.getValue().setResid(entry.getKey());
-                    menuRepository.save(entry.getValue());
-                }
-        );
+    public void saveMenu(List<Menu> restaurantMenuList) {
+        restaurantMenuList.stream()
+                .forEach(menu ->{
+                    menuRepository.save(menu);
+                });
     }
 
     public ResDetailsAndMenu getResMenu(int id) {
-        List<Menu> itemList = getMenuListForRes(id);
+        List<Menu> itemList = getMenu(id);
         RestaurantDetails restaurantDetails = getRestaurantInformation(id);
 
 
@@ -57,7 +57,7 @@ public class MenuService {
         return restaurantRepository.findByResID(id);
     }
 
-    public List<Menu> getMenuListForRes(int resid) {
+    public List<Menu> getMenu(int resid) {
         return menuRepository.findByResid(resid);
     }
 
@@ -67,12 +67,35 @@ public class MenuService {
                     entry.getValue().stream()
                             .forEach(item -> {
                                 Menu menu = Menu.builder()
-                                        .itemId(item)
+                                        .itemID(item)
                                         .resid(entry.getKey())
                                         .build();
 
                                 menuRepository.delete(menu);
                             });
                 });
+    }
+
+    public List<Menu> getMenuListForMenuID(List<Integer>itemList){
+        List<Menu>menuList =  new ArrayList<>();
+        List<CompletableFuture<Menu>>futurelist = new ArrayList<>();
+
+        itemList.stream().forEach(entry->
+        {
+            CompletableFuture<Menu> menu = menuRepository.findByItemID(entry);
+            futurelist.add(menu);
+        });
+
+        for (CompletableFuture<Menu> item:futurelist) {
+            try {
+                menuList.add(item.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return menuList;
     }
 }

@@ -17,8 +17,8 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "item_id", nullable = false)
-    private int  itemId;
+    @Column(name = "itemID", nullable = false)
+    private int  itemID;
 
     @Column(name = "item_name", nullable = false)
     private String itemName;
@@ -27,7 +27,7 @@ public class Menu {
     private String qty;
 
     @Column(name = "price", nullable = false)
-    private double price;
+    private Double price;
 
     @Column(name = "type", nullable = false)
     private String type;

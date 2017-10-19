@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by sony on 04-10-2017.
@@ -17,18 +16,12 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tabledetails")
-public class TableDetails {
+@Table(name = "table_details")
+public class TableDetails implements Serializable {
 
-    @Column(name = "resID",unique = true, nullable = false)
-    int resID;
+    @EmbeddedId
+    private TdetailsID detailsID;
 
-    @Column(name = "itemID",unique = true, nullable = false)
-    int itemID;
-
-    @Column(name = "quantity",unique = true, nullable = false)
-    String quantity;
-
-    @Column(name = "tableID",unique = true, nullable = false)
-    int tableID;
+    @Column(name = "quantity",unique = true,nullable = false)
+    Integer quantity;
 }

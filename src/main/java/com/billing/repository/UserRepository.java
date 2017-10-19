@@ -9,6 +9,6 @@ public interface UserRepository extends CrudRepository<User,String>  {
 
     User save(User user);
 
-    List<User> findByResid(int id);
+    List<User> findByRestaurantId(int id);
 
 }

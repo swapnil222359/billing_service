@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,5 +18,5 @@ import java.util.Map;
 public class TableTransactionResponse {
     int resID;
     int tableID;
-    Map<Integer,String> ItemQtyList;
+    List<MenuItemsResponse> itemList;
 }

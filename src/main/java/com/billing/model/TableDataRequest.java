@@ -16,7 +16,7 @@ import java.util.Map;
 @Builder
 public class TableDataRequest {
 
-    Map<Integer, String> itemQtyList;
-    int resID;
-    int tableID;
+    private Map<Integer, Integer> itemQuantityMap;
+    private int resID;
+    private int tableID;
 }
