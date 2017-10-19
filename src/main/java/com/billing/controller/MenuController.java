@@ -17,13 +17,13 @@ public class MenuController {
     private MenuService menuService;
 
     @PostMapping(value = "/saveMenu")
-    public void saveDetails(@RequestBody Map<Integer, Menu> restaurantMenuMap) {
+    public void saveDetails(@RequestBody List<Menu> restaurantMenuMap) {
         menuService.saveMenu(restaurantMenuMap);
     }
 
     @GetMapping(value = "/{id}/getMenu")
     public List<Menu> getMenuDetails(@PathVariable("id") int id) {
-        return menuService.getMenuListForRes(id);
+        return menuService.getMenu(id);
     }
 
     @PostMapping(value = "/deleteMenuItem")

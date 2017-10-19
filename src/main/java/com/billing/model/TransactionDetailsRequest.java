@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Map;
 
 @Data
@@ -16,7 +14,7 @@ import java.util.Map;
 @Builder
 public class TransactionDetailsRequest {
 
-    private Map<Integer,String> itemQtyList;
+    private Map<Integer,Integer> itemQuantityMap;
 
     private double total;
 
@@ -26,8 +24,12 @@ public class TransactionDetailsRequest {
 
     private int userID;
 
-    private String couponID;
+    private int couponID;
 
     private Integer tableID;
+
+    private String type;
+
+    private String paymentID;
 
 }

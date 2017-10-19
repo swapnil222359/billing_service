@@ -33,6 +33,11 @@ public class RestaurantController {
         return "Hello ";
     }
 
+    @RequestMapping(value = "/get")
+    String hello(){
+        return "helloworld";
+    }
+
     @RequestMapping(value = "/saveRestaurantDetails", method = RequestMethod.POST, consumes = "application/json")
     public void saveRIFDetails(@RequestBody AddResDetailsRequest restaurantDetails){
         service.saveRIF(restaurantDetails);

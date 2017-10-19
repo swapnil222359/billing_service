@@ -20,24 +20,30 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "trid",nullable = false,unique = true)
+    @Column(name = "trID",nullable = false,unique = true)
     private int trID;
 
     @Column(name = "total" ,nullable = false)
     private double total;
 
-    @Column(name = "resid" ,nullable = false)
+    @Column(name = "resID" ,nullable = false)
     private int resID;
 
-    @Column(name = "timestamp",nullable = false)
+    @Column(name = "timestamp")
     private Timestamp timestamp;
 
-    @Column(name = "userid", nullable = false)
+    @Column(name = "userID")
     private int userID;
 
-    @Column(name = "couponID", nullable = false)
-    private String couponID;
+    @Column(name = "couponID")
+    private int couponID;
 
     @Column(name = "tableID", nullable = false)
     private int tableID;
+
+    @Column(name = "payment_type",nullable = false)
+    private String paymentType;
+
+    @Column(name = "paymentID")
+    private String paymentID;
 }
