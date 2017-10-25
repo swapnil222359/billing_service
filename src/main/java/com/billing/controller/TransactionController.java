@@ -1,12 +1,14 @@
 package com.billing.controller;
 
-import com.billing.model.PreviousTransactionListResponse;
+import com.billing.model.PreviousTransactionHistoryResponse;
 import com.billing.model.TableDataRequest;
 import com.billing.model.TableTransactionResponse;
 import com.billing.service.TransactionInformationService;
 import com.billing.model.TransactionDetailsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by sony on 20-09-2017.
@@ -33,9 +35,14 @@ public class TransactionController {
         return transactionInformationService.getTableDetails(id,resID);
     }
 
-    @GetMapping(value = "/previoustransactions/{total}/res/{resID}")
-    public PreviousTransactionListResponse getPreviousTransactions(@PathVariable(value = "total")int total,@PathVariable(value = "resID")int resID){
-        return transactionInformationService.getPreviousTransactions(total,resID);
+    @GetMapping(value = "/previoustransactions/res/{resID}/{count}/{page}")
+    public List<PreviousTransactionHistoryResponse> getPreviousTransactions(@PathVariable(value = "resID")int resID, @PathVariable(value = "count")int count, @PathVariable(value = "page")int page){
+        return transactionInformationService.getPreviousTransactions(resID,count,page);
+    }
+
+    @GetMapping(value = "/previoustransactions/res/{resID}/{transactionID}")
+    public TableTransactionResponse getTransactionForID(@PathVariable(value = "resID")int resID ,@PathVariable(value = "transactionID")int trID){
+        return transactionInformationService.getCompletedTransaction(trID);
     }
 
 

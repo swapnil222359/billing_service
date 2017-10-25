@@ -23,8 +23,8 @@ public class Transaction {
     @Column(name = "trID",nullable = false,unique = true)
     private int trID;
 
-    @Column(name = "total" ,nullable = false)
-    private double total;
+    @Column(name = "total" )
+    private Double total;
 
     @Column(name = "resID" ,nullable = false)
     private int resID;
@@ -33,15 +33,15 @@ public class Transaction {
     private Timestamp timestamp;
 
     @Column(name = "userID")
-    private int userID;
+    private Integer userID;
 
     @Column(name = "couponID")
-    private int couponID;
+    private Integer couponID;
 
     @Column(name = "tableID", nullable = false)
     private int tableID;
 
-    @Column(name = "payment_type",nullable = false)
+    @Column(name = "payment_type")
     private String paymentType;
 
     @Column(name = "paymentID")

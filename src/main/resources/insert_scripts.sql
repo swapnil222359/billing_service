@@ -131,6 +131,19 @@ ALTER TABLE transaction_details
     DROP COLUMN qty;
 INSERT INTO transaction(trid,resid,tableID)
     VALUES (1,1,2);
+INSERT INTO transaction(resid,tableID,total)
+VALUES (1,4,600);
+INSERT INTO transaction(resid,tableID,total)
+VALUES (3,2,500);
+INSERT INTO transaction(resid,tableID,total)
+VALUES (2,2,400);
+INSERT INTO transaction(resid,tableID,total)
+VALUES (3,3,300);
+INSERT INTO transaction(resid,tableID,total)
+VALUES (1,3,100);
+INSERT INTO transaction(resid,tableID,total)
+VALUES (1,2,200);
+
 
 INSERT INTO table_details(tableID,itemID,resID,quantity)
 VALUES (3,1,1,3);
@@ -156,4 +169,7 @@ VALUES (4,"menu4",50,"full",1,"starter");
 INSERT INTO menu(itemID,item_name,price,quantity,resid,type)
 VALUES (5,"menu5",50,"full",1,"starter");
 
-SELECT * FROM table_details ;
+SELECT * FROM transaction ;
+
+DELETE FROM transaction
+WHERE tableID = 4;
