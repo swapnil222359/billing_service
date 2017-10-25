@@ -1,16 +1,15 @@
 package com.billing.service;
 
 import com.billing.model.*;
-import com.billing.repository.MenuRepository;
 import com.billing.repository.TableRepository;
 import com.billing.repository.TransactionItemsRepository;
 import com.billing.repository.TransactionDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -132,8 +131,33 @@ public class TransactionInformationService {
         return response;
     }
 
-    public PreviousTransactionListResponse getPreviousTransactions(int total, int resID) {
-        //tdRepository.findByResID(resID)
-        return new PreviousTransactionListResponse();
+    public List<PreviousTransactionHistoryResponse> getPreviousTransactions(int resID, int count, int page) {
+        Pageable pageCount = new PageRequest(page,count);
+        List<Transaction> transactionList = tdRepository.findByResIDOrderByTrIDDesc(resID,pageCount);
+
+        return translatedResponseFromTransaction(transactionList);
+    }
+
+    private List<PreviousTransactionHistoryResponse> translatedResponseFromTransaction(List<Transaction> transactionList) {
+        List<PreviousTransactionHistoryResponse> responseList = new ArrayList<>();
+        transactionList.stream().forEach(item->{
+            responseList.add(PreviousTransactionHistoryResponse.builder()
+                    .resID(item.getResID())
+                    .tableID(item.getTableID())
+                    .couponID(item.getCouponID())
+                    .trID(item.getTrID())
+                    .paymentID(item.getPaymentID())
+                    .paymentType(item.getPaymentType())
+                    .total(item.getTotal())
+                    .userID(item.getUserID())
+                    .timestamp(item.getTimestamp())
+                    .build()
+            );
+        });
+        return responseList;
+    }
+
+    public TableTransactionResponse getCompletedTransaction(int trID) {
+        return new TableTransactionResponse();
     }
 }
