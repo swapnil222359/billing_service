@@ -20,8 +20,8 @@ import java.io.Serializable;
 public class TableDetails implements Serializable {
 
     @EmbeddedId
-    private TdetailsID detailsID;
+    private TableDetailsPK detailsID;
 
-    @Column(name = "quantity",unique = true,nullable = false)
+    @Column(name = "item_quantity",nullable = false)
     Integer quantity;
 }

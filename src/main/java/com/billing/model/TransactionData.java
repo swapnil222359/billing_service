@@ -20,13 +20,14 @@ public class TransactionData {
     @Column(name = "Id",nullable = false, unique = true)
     private int id;
 
-    @Column(name = "trID", nullable = false)
-    private int trID;
+    @Column(name = "transaction_id", nullable = false)
+    private int transactionId;
 
-    @Column(name = "itemID",nullable = false)
-    private int itemID;
+    @OneToOne
+    @JoinColumn(name = "item_id")
+    private Menu menu;
 
-    @Column(name = "quantity",nullable = false)
-    private int qty;
+    @Column(name = "item_quantity",nullable = false)
+    private int itemQuantity;
 
 }

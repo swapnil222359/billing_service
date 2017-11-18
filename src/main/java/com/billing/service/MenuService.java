@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @Service
 public class MenuService {
@@ -58,7 +59,7 @@ public class MenuService {
     }
 
     public List<Menu> getMenu(int resid) {
-        return menuRepository.findByResid(resid);
+        return menuRepository.findByRestaurantId(resid);
     }
 
     public void deleteMenuItems(HashMap<Integer, List<Integer>> deleteMenuMap) {
@@ -67,8 +68,8 @@ public class MenuService {
                     entry.getValue().stream()
                             .forEach(item -> {
                                 Menu menu = Menu.builder()
-                                        .itemID(item)
-                                        .resid(entry.getKey())
+                                        .itemId(item)
+                                        .restaurantId(entry.getKey())
                                         .build();
 
                                 menuRepository.delete(menu);
@@ -78,13 +79,8 @@ public class MenuService {
 
     public List<Menu> getMenuListForMenuID(List<Integer>itemList){
         List<Menu>menuList =  new ArrayList<>();
-        List<CompletableFuture<Menu>>futurelist = new ArrayList<>();
 
-        itemList.stream().forEach(entry->
-        {
-            CompletableFuture<Menu> menu = menuRepository.findByItemID(entry);
-            futurelist.add(menu);
-        });
+        List<CompletableFuture<Menu>> futurelist = itemList.stream().map(entry-> menuRepository.findByItemId(entry)).collect(Collectors.toList());
 
         for (CompletableFuture<Menu> item:futurelist) {
             try {

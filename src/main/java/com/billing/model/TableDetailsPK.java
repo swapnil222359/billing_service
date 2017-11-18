@@ -19,16 +19,16 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Embeddable
-public class TdetailsID implements Serializable{
+public class TableDetailsPK implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "resID",unique = true, nullable = false)
-    private int resID;
+    @Column(name = "restaurantId",unique = true, nullable = false)
+    private int restaurantId;
 
-    @Column(name = "tableID",unique = true, nullable = false)
-    private int tableID;
+    @Column(name = "tableId",unique = true, nullable = false)
+    private int tableId;
 
-    @Column(name = "itemID",unique = true, nullable = false)
-    private int itemID;
+    @Column(name = "itemId",unique = true, nullable = false)
+    private int itemId;
 }

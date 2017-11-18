@@ -15,13 +15,13 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PreviousTransactionHistoryResponse {
-    private int trID;
+    private int transactionId;
     private Double total;
-    private int resID;
-    private Integer userID;
-    private Integer couponID;
-    private int tableID;
+    private int restaurantId;
+    private Integer userId;
+    private Integer couponId;
+    private int tableId;
     private Timestamp timestamp;
     private String paymentType;
-    private String paymentID;
+    private String paymentId;
 }

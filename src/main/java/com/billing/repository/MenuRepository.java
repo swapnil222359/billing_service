@@ -11,10 +11,10 @@ public interface MenuRepository extends CrudRepository<Menu,String> {
 
     Menu save(Menu menu);
 
-    List <Menu> findByResid(int id);
+    List <Menu> findByRestaurantId(int restaurantId);
 
     void delete(Menu menuItem);
 
     @Async
-    CompletableFuture<Menu> findByItemID(int id);
+    CompletableFuture<Menu> findByItemId(int id);
 }

@@ -4,6 +4,7 @@ import com.billing.model.*;
 import com.billing.repository.TableRepository;
 import com.billing.repository.TransactionItemsRepository;
 import com.billing.repository.TransactionDetailsRepository;
+import com.billing.translator.MenuTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,14 +35,14 @@ public class TransactionInformationService {
     public Transaction saveTransactionDetails(TransactionDetailsRequest detailsRequest) {
 
         Transaction transaction = Transaction.builder()
-                .resID(detailsRequest.getResID())
+                .restaurantId(detailsRequest.getRestaurantId())
                 .timestamp(detailsRequest.getTimestamp())
                 .total(detailsRequest.getTotal())
-                .userID(detailsRequest.getUserID())
-                .couponID(detailsRequest.getCouponID())
-                .tableID(detailsRequest.getTableID())
+                .userId(detailsRequest.getUserId())
+                .couponId(detailsRequest.getCouponId())
+                .tableId(detailsRequest.getTableId())
                 .paymentType(detailsRequest.getType())
-                .paymentID(detailsRequest.getPaymentID())
+                .paymentId(detailsRequest.getPaymentId())
                 .build();
 
         Transaction savedTransaction = tdRepository.save(transaction);
@@ -53,23 +54,22 @@ public class TransactionInformationService {
         return transaction;
     }
 
-    public void getTransactionDetails(TransactionDetailsRequest detailsRequest) {
-        saveTransactionDetails(detailsRequest);
-    }
-
     private void removeTableTransactionData(TransactionDetailsRequest transaction) {
-        if(transaction.getTableID()!=null){
-            tableRepository.deleteByDetailsID_TableIDAndDetailsID_ResID(3,1);
+        if(transaction.getTableId()!=null){
+            tableRepository.deleteByDetailsID_TableIdAndDetailsID_RestaurantId(3,1);
         }
     }
 
     private void saveItemsForTransaction(TransactionDetailsRequest detailsRequest, Transaction savedTransaction) {
 
         for(Map.Entry<Integer,Integer> item:detailsRequest.getItemQuantityMap().entrySet()){
+            Menu menu = Menu.builder()
+                    .itemId(item.getKey())
+                    .build();
             TransactionData transaction = TransactionData.builder()
-                    .itemID(item.getKey())
-                    .qty(item.getValue())
-                    .trID(savedTransaction.getTrID())
+                    .menu(menu)
+                    .itemQuantity(item.getValue())
+                    .transactionId(savedTransaction.getTransactionId())
                     .build();
 
             itemsForTransactionRepository.save(transaction);
@@ -80,10 +80,10 @@ public class TransactionInformationService {
         tableDataRequest.getItemQuantityMap().entrySet().stream().forEach(entry->
                 {
                     TableDetails details = TableDetails.builder()
-                            .detailsID(TdetailsID.builder()
-                                    .itemID(entry.getKey())
-                                    .resID(tableDataRequest.getResID())
-                                    .tableID(tableDataRequest.getTableID())
+                            .detailsID(TableDetailsPK.builder()
+                                    .itemId(entry.getKey())
+                                    .restaurantId(tableDataRequest.getRestaurantId())
+                                    .tableId(tableDataRequest.getTableId())
                                     .build()
                             )
                             .quantity(entry.getValue())
@@ -94,14 +94,14 @@ public class TransactionInformationService {
     }
 
     public TableTransactionResponse getTableDetails(int id, int resID) {
-        List<TableDetails> detailsList = tableRepository.findByDetailsID_TableIDAndDetailsID_ResID(id,resID);
+        List<TableDetails> detailsList = tableRepository.findByDetailsID_TableIdAndDetailsID_RestaurantId(id,resID);
 
         List<Integer> itemIDList = null;
         Map<Integer,Integer> itemQtyList =  new HashMap<>();
         List<Menu> menuList = null;
         if(detailsList != null && !detailsList.isEmpty()){
-            itemIDList = detailsList.stream().map(item -> item.getDetailsID().getItemID()).collect(Collectors.toList());
-            itemQtyList = detailsList.stream().collect(Collectors.toMap(item-> item.getDetailsID().getItemID(),TableDetails::getQuantity));
+            itemIDList = detailsList.stream().map(item -> item.getDetailsID().getItemId()).collect(Collectors.toList());
+            itemQtyList = detailsList.stream().collect(Collectors.toMap(item-> item.getDetailsID().getItemId(),TableDetails::getQuantity));
             menuList = menuService. getMenuListForMenuID(itemIDList);
         }
         return getTableDetailsResponse(menuList,id,resID,itemQtyList);
@@ -110,30 +110,20 @@ public class TransactionInformationService {
     private TableTransactionResponse getTableDetailsResponse(List<Menu> menuList, int tableID, int resID, Map<Integer, Integer> itemQtyList) {
 
         List<MenuItemsResponse> menuItemsResponseList = menuList.stream()
-                .filter(item->itemQtyList.containsKey(item.getItemID()))
-                .map(menuItem ->{
-
-                     return MenuItemsResponse.builder()
-                            .itemId(menuItem.getItemID())
-                            .itemName(menuItem.getItemName())
-                            .price(menuItem.getPrice())
-                            .type(menuItem.getType())
-                            .quantity(menuItem.getQty())
-                            .itemQuantity(itemQtyList.get(menuItem.getItemID()))
-                            .build();
-                }).collect(Collectors.toList());
+                .filter(item->itemQtyList.containsKey(item.getItemId()))
+                .map(menuItem -> MenuTranslator.translateMenuItem(menuItem,itemQtyList.get(menuItem.getItemId()))).collect(Collectors.toList());
 
         TableTransactionResponse response = TableTransactionResponse.builder()
-                .resID(resID)
-                .tableID(tableID)
+                .restaurantId(resID)
+                .tableId(tableID)
                 .itemList(menuItemsResponseList)
                 .build();
         return response;
     }
 
-    public List<PreviousTransactionHistoryResponse> getPreviousTransactions(int resID, int count, int page) {
+    public List<PreviousTransactionHistoryResponse> getPreviousTransactions(int restaurantId, int count, int page) {
         Pageable pageCount = new PageRequest(page,count);
-        List<Transaction> transactionList = tdRepository.findByResIDOrderByTrIDDesc(resID,pageCount);
+        List<Transaction> transactionList = tdRepository.findByRestaurantIdOrderByTransactionIdDesc(restaurantId,pageCount);
 
         return translatedResponseFromTransaction(transactionList);
     }
@@ -142,14 +132,14 @@ public class TransactionInformationService {
         List<PreviousTransactionHistoryResponse> responseList = new ArrayList<>();
         transactionList.stream().forEach(item->{
             responseList.add(PreviousTransactionHistoryResponse.builder()
-                    .resID(item.getResID())
-                    .tableID(item.getTableID())
-                    .couponID(item.getCouponID())
-                    .trID(item.getTrID())
-                    .paymentID(item.getPaymentID())
+                    .restaurantId(item.getRestaurantId())
+                    .tableId(item.getTableId())
+                    .couponId(item.getCouponId())
+                    .transactionId(item.getTransactionId())
+                    .paymentId(item.getPaymentId())
                     .paymentType(item.getPaymentType())
                     .total(item.getTotal())
-                    .userID(item.getUserID())
+                    .userId(item.getUserId())
                     .timestamp(item.getTimestamp())
                     .build()
             );
@@ -157,7 +147,13 @@ public class TransactionInformationService {
         return responseList;
     }
 
-    public TableTransactionResponse getCompletedTransaction(int trID) {
-        return new TableTransactionResponse();
+    public TableTransactionResponse getCompletedTransaction(int transactionId,int restaurantId) {
+        List<TransactionData> list = itemsForTransactionRepository.findByTransactionId(transactionId);
+        List<MenuItemsResponse> menuItemsResponseList = list.stream().map(item-> MenuTranslator.translateMenuItem(item.getMenu(),item.getItemQuantity())).collect(Collectors.toList());
+
+        return TableTransactionResponse.builder()
+                .itemList(menuItemsResponseList)
+                .restaurantId(restaurantId)
+                .build();
     }
 }

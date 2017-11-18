@@ -22,7 +22,7 @@ public class TransactionController {
 
     @PostMapping(value = "/savetransaction")
     public void saveTransactionDetails(@RequestBody TransactionDetailsRequest detailsRequest){
-        transactionInformationService.getTransactionDetails(detailsRequest);
+        transactionInformationService.saveTransactionDetails(detailsRequest);
     }
 
     @PostMapping(value = "/savetabledata")
@@ -31,18 +31,18 @@ public class TransactionController {
     }
 
     @GetMapping(value = "/gettabledetails/{total}/res/{resID}")
-    public TableTransactionResponse getTableTransactionDetails(@PathVariable(value = "tableID")int id, @PathVariable(value = "resID")int resID){
-        return transactionInformationService.getTableDetails(id,resID);
+    public TableTransactionResponse getTableTransactionDetails(@PathVariable(value = "tableID")int tableId, @PathVariable(value = "resID")int restaurantId){
+        return transactionInformationService.getTableDetails(tableId,restaurantId);
     }
 
     @GetMapping(value = "/previoustransactions/res/{resID}/{count}/{page}")
-    public List<PreviousTransactionHistoryResponse> getPreviousTransactions(@PathVariable(value = "resID")int resID, @PathVariable(value = "count")int count, @PathVariable(value = "page")int page){
-        return transactionInformationService.getPreviousTransactions(resID,count,page);
+    public List<PreviousTransactionHistoryResponse> getPreviousTransactions(@PathVariable(value = "resID")int restaurantId, @PathVariable(value = "count")int count, @PathVariable(value = "page")int page){
+        return transactionInformationService.getPreviousTransactions(restaurantId,count,page);
     }
 
     @GetMapping(value = "/previoustransactions/res/{resID}/{transactionID}")
-    public TableTransactionResponse getTransactionForID(@PathVariable(value = "resID")int resID ,@PathVariable(value = "transactionID")int trID){
-        return transactionInformationService.getCompletedTransaction(trID);
+    public TableTransactionResponse getTransactionForID(@PathVariable(value = "resID")int restaurantId ,@PathVariable(value = "transactionID")int transactionId){
+        return transactionInformationService.getCompletedTransaction(transactionId,restaurantId);
     }
 
 
