@@ -13,7 +13,7 @@ public interface TransactionDetailsRepository extends CrudRepository<Transaction
 
     Transaction save(Transaction transaction);
 
-    List<Transaction> findByResIDOrderByTrIDDesc(int resID, Pageable pageable);
+    List<Transaction> findByRestaurantIdOrderByTransactionIdDesc(int restaurantId, Pageable pageable);
 
 
 }

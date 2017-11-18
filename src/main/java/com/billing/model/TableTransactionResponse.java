@@ -16,7 +16,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Builder
 public class TableTransactionResponse {
-    int resID;
-    int tableID;
+    int restaurantId;
+    int tableId;
     List<MenuItemsResponse> itemList;
 }

@@ -17,6 +17,6 @@ import java.util.Map;
 public class TableDataRequest {
 
     private Map<Integer, Integer> itemQuantityMap;
-    private int resID;
-    private int tableID;
+    private int restaurantId;
+    private int tableId;
 }

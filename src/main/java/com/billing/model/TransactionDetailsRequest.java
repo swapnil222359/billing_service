@@ -18,18 +18,18 @@ public class TransactionDetailsRequest {
 
     private double total;
 
-    private int resID;
+    private int restaurantId;
 
     private Timestamp timestamp;
 
-    private int userID;
+    private int userId;
 
-    private int couponID;
+    private int couponId;
 
-    private Integer tableID;
+    private Integer tableId;
 
     private String type;
 
-    private String paymentID;
+    private String paymentId;
 
 }

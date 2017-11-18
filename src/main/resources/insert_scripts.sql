@@ -77,7 +77,7 @@ CREATE TABLE transaction_details
 (
     Id int(32)NOT NULL AUTO_INCREMENT,
     itemID int(32),
-    trID int(32),
+    transactionId int(32),
     quantity int(16),
     PRIMARY KEY (Id)
 
@@ -109,7 +109,7 @@ SELECT * FROM REST;
 RENAME TABLE rest to RIF;
 
 ALTER TABLE tabledetails
-    ADD trID int(32);
+    ADD transactionId int(32);
 
 ALTER TABLE menu
     CHANGE qty quantity VARCHAR(100);
@@ -169,7 +169,9 @@ VALUES (4,"menu4",50,"full",1,"starter");
 INSERT INTO menu(itemID,item_name,price,quantity,resid,type)
 VALUES (5,"menu5",50,"full",1,"starter");
 
-SELECT * FROM transaction ;
+SELECT * FROM transaction_details ;
 
-DELETE FROM transaction
+DELETE FROM transaction_details
 WHERE tableID = 4;
+
+DROP TABLE transaction_details;
